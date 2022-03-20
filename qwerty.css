@@ -1,0 +1,25 @@
+TABLE {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: darksalmon ;
+}
+TD,TH{
+    padding: 3px;
+    border: 1px solid black;
+}
+th{
+    background-color: blueviolet;
+}
+table td{
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+table th{
+    width: auto;
+    height: auto;
+}
+.red{
+    background-color: red;
+}
+
