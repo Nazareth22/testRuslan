@@ -12,6 +12,7 @@ include "Connection.php";
 include "Output.php";
 include "Router.php";
 
+
 // главная страница вашсайт.рф
 Router::route('/', function(){
     print 'Домашняя станица';
@@ -24,11 +25,9 @@ Router::route('/(\w+)/(\d+)', function($category, $id){
 // запускаем маршрутизатор, передавая ему запрошенный адрес
 Router::execute($_SERVER['REQUEST_URI']);
 
-
 $connection = new Connection("db","ruslan","111","ruslan","3306");
 
 $output = new Output($connection);
-$output->select();
 
 
 if (isset($_POST["first_name"], $_POST["last_name"], $_POST["middle_name"], $_POST["age"]))
@@ -42,11 +41,12 @@ if (isset($_POST["first_name"], $_POST["last_name"], $_POST["middle_name"], $_PO
         $sql = "INSERT INTO first (first_name, last_name, middle_name, age) VALUES ('$firstName', '$lastName','$middleName','$age')";
         $affectedRowsNumber = $connection->exec($sql);
     echo '<meta http-equiv="refresh" content="10; URL=index.php">';
-}
 
-?>
-<h3>Create a new User</h3>
-<form method="post">
+}
+if ($_SERVER['REQUEST_URI'] == '/add-table')
+{
+    $form = '<h3>Create a new User</h3>
+<form method="post" action="http://testruslan.local/table-list">
     <p>FirstName:
         <input type="text" name="first_name" /></p>
     <p>LastName:
@@ -56,6 +56,13 @@ if (isset($_POST["first_name"], $_POST["last_name"], $_POST["middle_name"], $_PO
     <p>Age:
         <input type="number" name="age" /></p>
     <input type="submit" value="Save">
-</form>
+</form>';
+    echo $form;
+}
+elseif ($_SERVER['REQUEST_URI'] == '/table-list')
+    $output->select();
+
+?>
+
 </body>
 </html>
