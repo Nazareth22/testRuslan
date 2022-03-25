@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>METANIT.COM</title>
+    <title>Таблица Users</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="qwerty.css">
 </head>
@@ -10,6 +10,20 @@
 <?php
 include "Connection.php";
 include "Output.php";
+include "Router.php";
+
+// главная страница вашсайт.рф
+Router::route('/', function(){
+    print 'Домашняя станица';
+});
+
+Router::route('/(\w+)/(\d+)', function($category, $id){
+    print $category . ':' . $id;
+});
+
+// запускаем маршрутизатор, передавая ему запрошенный адрес
+Router::execute($_SERVER['REQUEST_URI']);
+
 
 $connection = new Connection("db","ruslan","111","ruslan","3306");
 
@@ -27,8 +41,7 @@ if (isset($_POST["first_name"], $_POST["last_name"], $_POST["middle_name"], $_PO
 
         $sql = "INSERT INTO first (first_name, last_name, middle_name, age) VALUES ('$firstName', '$lastName','$middleName','$age')";
         $affectedRowsNumber = $connection->exec($sql);
-
-    header('Location: /index.php');
+    echo '<meta http-equiv="refresh" content="10; URL=index.php">';
 }
 
 ?>

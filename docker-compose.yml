@@ -9,7 +9,6 @@ services:
     volumes:
       - .:/var/www/testRuslan
       - ./back.sh:/back.sh
-    entrypoint: /back.sh
     environment:
       - TZ=Europe/Moscow
       - XDEBUG_SESSION=1
