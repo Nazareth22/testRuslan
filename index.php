@@ -30,21 +30,21 @@ $connection = new Connection("db","ruslan","111","ruslan","3306");
 $output = new Output($connection);
 
 
-if (isset($_POST["first_name"], $_POST["last_name"], $_POST["middle_name"], $_POST["age"]))
+if ($_SERVER['REQUEST_URI'] == '/add-table')
 {
+    if (isset($_POST["first_name"], $_POST["last_name"], $_POST["middle_name"], $_POST["age"]))
+    {
 
-    $firstName = $_POST["first_name"];
-    $lastName = $_POST["last_name"];
-    $middleName = $_POST["middle_name"];
-    $age = $_POST["age"];
+        $firstName = $_POST["first_name"];
+        $lastName = $_POST["last_name"];
+        $middleName = $_POST["middle_name"];
+        $age = $_POST["age"];
 
         $sql = "INSERT INTO first (first_name, last_name, middle_name, age) VALUES ('$firstName', '$lastName','$middleName','$age')";
         $affectedRowsNumber = $connection->exec($sql);
-    echo '<meta http-equiv="refresh" content="10; URL=index.php">';
+        echo '<meta http-equiv="refresh" content="10; URL=index.php">';
 
-}
-if ($_SERVER['REQUEST_URI'] == '/add-table')
-{
+    }
     $form = '<h3>Create a new User</h3>
 <form method="post" action="http://testruslan.local/table-list">
     <p>FirstName:
